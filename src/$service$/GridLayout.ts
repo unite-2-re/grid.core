@@ -131,8 +131,30 @@ const classes: StyleTuple[] = [
     [":where(.u2-grid-item), :where(.u2-grid-page > *), :where(.u2-grid-item-label)", currentCellLayout]
 ];
 
+// @ts-ignore
+import styles from "../$scss$/_GridLayout.scss?inline";
+
+//
+const loadInlineStyle = (inline: string)=>{
+    const style = document.createElement("style");
+    //style.innerHTML = inline;
+    style.innerHTML = `@import(${URL.createObjectURL(new Blob([inline], {type: "text/css"}))})`;
+    document.head.appendChild(style);
+}
+
+//
+const loadBlobStyle = (inline: string)=>{
+    const style = document.createElement("link");
+    style.rel = "stylesheet";
+    style.type = "text/css";
+    style.href = URL.createObjectURL(new Blob([inline], {type: "text/css"}));
+    document.head.appendChild(style);
+    return style;
+}
+
 //
 const initialize = ()=>{
+    loadBlobStyle(styles);
     whenAnyScreenChanges((e?: any) => {
         updateOrientation(e);
         setStyleRules(classes);
