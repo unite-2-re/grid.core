@@ -132,7 +132,12 @@ const classes: StyleTuple[] = [
 ];
 
 //
-whenAnyScreenChanges((e?: any) => {
-    updateOrientation(e);
-    setStyleRules(classes);
-});
+const initialize = ()=>{
+    whenAnyScreenChanges((e?: any) => {
+        updateOrientation(e);
+        setStyleRules(classes);
+    });
+}
+
+//
+export default initialize;
