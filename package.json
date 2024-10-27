@@ -1,10 +1,10 @@
 {
-    "name": "image-ts",
-    "description": "Image wallpaper library",
+    "name": "grid-ts",
+    "description": "Grid Layout core",
     "version": "1.0.0alpha",
     "private": false,
     "type": "module",
-    "index": "./dist/image.js",
+    "index": "./dist/grid.js",
     "scripts": {
         "dev": "vite",
         "worker": "vite build",
