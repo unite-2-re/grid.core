@@ -1,5 +1,5 @@
 {
-    "name": "grid-ts",
+    "name": "@unite-2/grid-ts",
     "description": "Grid Layout core",
     "version": "1.0.0alpha",
     "private": false,
