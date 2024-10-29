@@ -40,6 +40,11 @@
 @property --ox-r-loc { syntax: "<length-percentage>"; initial-value: 0px; inherits: true; }
 
 //
+@property --translate-x { syntax: "<length-percentage>"; initial-value: 0; inherits: true; }
+@property --translate-y { syntax: "<length-percentage>"; initial-value: 0; inherits: true; }
+
+
+//
 @property --cell-x { syntax: "<integer>"; initial-value: 0; inherits: true; }
 @property --cell-y { syntax: "<integer>"; initial-value: 0; inherits: true; }
 @property --dir-x { syntax: "<number>"; initial-value: 0; inherits: true; }
@@ -187,8 +192,8 @@
 
         //
         & > :where(*[data-dragging]) {
-            --grid-c: calc(var(--fp-cell-x) + var(--c-shift-mod, 0));
-            --grid-r: calc(var(--fp-cell-y) + var(--r-shift-mod, 0));
+            --grid-c: var(--fp-cell-x);
+            --grid-r: var(--fp-cell-y);
         }
 
         //
@@ -198,8 +203,8 @@
             //
             & {
                 --icon-size: min(calc(100cqmin / min(var(--layout-c), var(--layout-r)) - max(var(--c-gap), var(--r-gap))), 4rem);
-                --grid-c: calc(var(--fc-cell-x) + var(--c-shift-mod, 0));
-                --grid-r: calc(var(--fc-cell-y) + var(--r-shift-mod, 0));
+                --grid-c: var(--fc-cell-x);
+                --grid-r: var(--fc-cell-y);
             }
 
             //
@@ -207,8 +212,8 @@
                 position: absolute;
                 transform:
                     translate(
-                        calc(var(--translate-x) + var(--inline-offset) + 0.5 * var(--ox-c-span, 1) * var(--ox-c-unit) - 50%),
-                        calc(var(--translate-y) + var(--block-offset ) + 0.5 * var(--ox-r-span, 1) * var(--ox-r-unit) - 50%)
+                        calc(var(--translate-x) + var(--inline-offset) + 0.5 * var(--ox-c-span, 1) * var(--ox-c-unit) - 50% + var(--drag-x, 0)*1px),
+                        calc(var(--translate-y) + var(--block-offset ) + 0.5 * var(--ox-r-span, 1) * var(--ox-r-unit) - 50% + var(--drag-y, 0)*1px)
                     )
                     scale(var(--scale, 1));
 

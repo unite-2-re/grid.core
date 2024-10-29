@@ -88,10 +88,12 @@ export const getOrientedPoint = () => {
 export const animationSequence = () => {
     return [
         {
-            "--grid-c": "calc(var(--fp-cell-x) + var(--c-shift-mod))",
-            "--grid-r": "calc(var(--fp-cell-y) + var(--r-shift-mod))"
+            "--grid-c": "var(--fp-cell-x)",//"calc(var(--fp-cell-x) + var(--c-shift-mod))",
+            "--grid-r": "var(--fp-cell-y)",//"calc(var(--fp-cell-y) + var(--r-shift-mod))"
         },
         {
+            "--drag-x": 0,
+            "--drag-y": 0,
             "--grid-c": "var(--fc-cell-x)",//"round(nearest, calc(var(--fc-cell-x) + var(--c-shift-mod)), 1)",
             "--grid-r": "var(--fc-cell-y)"//"round(nearest, calc(var(--fc-cell-y) + var(--r-shift-mod)), 1)",
         }
