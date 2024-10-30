@@ -61,11 +61,20 @@ export const getParent = (e) => {
 };
 
 //
+const get = (items, id)=>{
+    if (typeof items?.get == "function") {
+        return items.get(id);
+    } else {
+        return items?.find?.((item)=>(item.id == id));
+    }
+}
+
+//
 export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType): [number, number] => {
     //const items = gridItems;
     const preCell: [number, number] = [...$preCell]; // make non-conflict copy
     const icons =
-        [...gridArgs.page.list]?.map((id) => gridArgs.items.get(id)).filter((m) => !!m) || [];
+        [...gridArgs.page.list]?.map((id) => get(gridArgs.items, id)).filter((m) => !!m) || [];
 
     //
     const checkBusy = (cell): boolean => {

@@ -207,13 +207,19 @@
                 --grid-r: var(--fc-cell-y);
             }
 
+            // fix translate issues
+            & * {
+                --drag-x: 0;
+                --drag-y: 0;
+            }
+
             //
             & {
                 position: absolute;
                 transform:
                     translate(
-                        calc(var(--translate-x) + var(--inline-offset) + 0.5 * var(--ox-c-span, 1) * var(--ox-c-unit) - 50% + var(--drag-x, 0)*1px),
-                        calc(var(--translate-y) + var(--block-offset ) + 0.5 * var(--ox-r-span, 1) * var(--ox-r-unit) - 50% + var(--drag-y, 0)*1px)
+                        calc(var(--translate-x) + var(--inline-offset) + 0.5 * var(--ox-c-span, 1) * var(--ox-c-unit) - 50% + var(--drag-x, 0) * var(--zpx, 1px)),
+                        calc(var(--translate-y) + var(--block-offset ) + 0.5 * var(--ox-r-span, 1) * var(--ox-r-unit) - 50% + var(--drag-y, 0) * var(--zpx, 1px))
                     )
                     scale(var(--scale, 1));
 
@@ -228,8 +234,16 @@
                 will-change: --translate-x, --translate-y, --grid-c, --grid-r;
 
                 //
+                min-inline-size: 1px;
+                min-block-size: 1px;
+
+                //
                 inline-size: max-content;
                 block-size: max-content;
+
+                //
+                max-inline-size: var(--icon-size, 1px);
+                max-block-size: var(--icon-size, 1px);
 
                 //
                 pointer-events: none;
