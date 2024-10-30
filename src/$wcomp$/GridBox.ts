@@ -48,6 +48,7 @@ const loadBlobStyle = (preInit: string)=>{
     style.rel = "stylesheet";
     style.type = "text/css";
     style.href = preInit;
+    style.dataset.owner = "grid";
     document.head.appendChild(style);
     return style;
 }

@@ -4,6 +4,7 @@ export type StyleTuple = [selector: string, sheet: object];
 //
 const styleElement = document.createElement("style");
 document.querySelector("head")?.appendChild?.(styleElement);
+styleElement.dataset.owner = "grid";
 
 //
 export const setStyleRule = (selector: string, sheet: object) => {
