@@ -65,7 +65,7 @@ const get = (items, id)=>{
     if (typeof items?.get == "function") {
         return items.get(id);
     } else {
-        return items?.find?.((item)=>(item.id == id));
+        return Array.from(items)?.find?.((item: any)=>(item.id == id));
     }
 }
 
