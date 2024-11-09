@@ -32,8 +32,51 @@ export const whenAnyScreenChanges = (cb)=>{
     requestAnimationFrame(cb);
 }
 
+
+
 //
-CSS?.registerProperty?.({
+const regProp = (options: any)=>{
+    try {
+        CSS?.registerProperty?.(options);
+    } catch(e) {
+        console.warn(e);
+    };
+};
+
+//
+regProp?.({
+    name: "--drag-x",
+    syntax: "<number>",
+    inherits: true,
+    initialValue: "0",
+});
+
+//
+regProp?.({
+    name: "--drag-y",
+    syntax: "<number>",
+    inherits: true,
+    initialValue: "0",
+});
+
+//
+regProp?.({
+    name: "--grid-r",
+    syntax: "<number>",
+    inherits: true,
+    initialValue: "0",
+});
+
+//
+regProp?.({
+    name: "--grid-c",
+    syntax: "<number>",
+    inherits: true,
+    initialValue: "0",
+});
+
+//
+regProp?.({
     name: "--translate-x",
     syntax: "<length-percentage>",
     inherits: true,
@@ -41,7 +84,7 @@ CSS?.registerProperty?.({
 });
 
 //
-CSS?.registerProperty?.({
+regProp?.({
     name: "--translate-y",
     syntax: "<length-percentage>",
     inherits: true,
@@ -85,19 +128,19 @@ export const getOrientedPoint = () => {
 };
 
 //
-export const animationSequence = () => {
-    return [
-        {
-            "--grid-c": "var(--fp-cell-x)",//"calc(var(--fp-cell-x) + var(--c-shift-mod))",
-            "--grid-r": "var(--fp-cell-y)",//"calc(var(--fp-cell-y) + var(--r-shift-mod))"
-        },
-        {
-            "--drag-x": 0,
-            "--drag-y": 0,
-            "--grid-c": "var(--fc-cell-x)",//"round(nearest, calc(var(--fc-cell-x) + var(--c-shift-mod)), 1)",
-            "--grid-r": "var(--fc-cell-y)"//"round(nearest, calc(var(--fc-cell-y) + var(--r-shift-mod)), 1)",
-        }
-    ];
+export const animationSequence = (DragCoord = [0, 0], CellStart = null, CellEnd = null) => {
+    return [{
+        "--drag-x": DragCoord?.[0] || 0,
+        "--drag-y": DragCoord?.[1] || 0,
+        "--grid-c": CellStart?.[0] != null ? (CellStart?.[0]+1) : "var(--fp-cell-x)",
+        "--grid-r": CellStart?.[1] != null ? (CellStart?.[1]+1) : "var(--fp-cell-y)",
+    }, // starting...
+    {
+        "--drag-x": 0,
+        "--drag-y": 0,
+        "--grid-c": CellEnd?.[0] != null ? (CellEnd?.[0]+1) : "var(--fc-cell-x)",
+        "--grid-r": CellEnd?.[1] != null ? (CellEnd?.[1]+1) : "var(--fc-cell-y)",
+    }];
 };
 
 //

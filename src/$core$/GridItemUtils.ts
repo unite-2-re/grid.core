@@ -79,10 +79,8 @@ export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType)
     //
     const checkBusy = (cell): boolean => {
         return icons
-            .filter((e) => (!(e == gridArgs.item || e.id == gridArgs.item.id) && (e.pointerId < 0 || e.pointerId == null)))
-            .some((one) => {
-                return (one?.cell?.[0]||0) == (cell[0]||0) && (one?.cell?.[1]||0) == (cell[1]||0);
-            });
+            .filter((e) => (!(e == gridArgs?.item || e.id == gridArgs?.item?.id) && (e.pointerId < 0 || e.pointerId == null)))
+            .some((one) => ((one?.cell?.[0]||0) == (cell[0]||0) && (one?.cell?.[1]||0) == (cell[1]||0)));
     };
 
     //
