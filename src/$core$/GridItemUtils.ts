@@ -87,8 +87,7 @@ export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType)
 
     //
     if (!checkBusy(preCell)) {
-        gridArgs.item.cell = [...preCell];//makeReactive([...preCell]);
-        return gridArgs.item.cell;
+        return [...preCell];
     }
 
     //
@@ -115,8 +114,7 @@ export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType)
     //
     const suitable = variants.find((v) => !checkBusy(v));
     if (suitable) {
-        gridArgs.item.cell = [...suitable];//makeReactive([...suitable]);
-        return gridArgs.item.cell;
+        return [...suitable];//makeReactive([...suitable]);
     }
 
     //
@@ -126,8 +124,7 @@ export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType)
     while (busy && exceed++ < columns * rows) {
         //
         if (!(busy = checkBusy(comp))) {
-            gridArgs.item.cell = [...comp] as [number, number];//makeReactive([...comp]);
-            return gridArgs.item.cell;
+            return [...comp] as [number, number];
         }
 
         //
@@ -139,8 +136,7 @@ export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType)
     }
 
     //
-    gridArgs.item.cell = [...preCell];//makeReactive([...preCell]);
-    return gridArgs.item.cell;
+    return [...preCell];
 };
 
 
