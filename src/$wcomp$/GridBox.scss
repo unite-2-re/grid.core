@@ -230,7 +230,7 @@
 
                 //
                 zoom: 1;
-                place-self: center;
+                place-self: safe center;
                 will-change: --translate-x, --translate-y, --grid-c, --grid-r;
 
                 //
