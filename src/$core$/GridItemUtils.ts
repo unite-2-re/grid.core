@@ -28,25 +28,28 @@ export interface GridItemType {
 };
 
 //
-export interface GridPageType {
-    id: string;
+/*export interface GridPageType {
+    //id: string;
     list: string[];
+    layout: [number, number];
+    size: [number, number];
+};*/
+
+//
+export interface GridArgsType {
+    item: GridItemType;
+    list: Set<string> | string[];
+    items: Map<string, GridItemType>;
     layout: [number, number];
     size: [number, number];
 };
 
 //
-export interface GridArgsType {
-    item: GridItemType;
+export interface GridStateType {
+    lists: Set<string> | string[];
     items: Map<string, GridItemType>;
-    page: GridPageType;
-};
-
-//
-export interface GridsStateType {
-    grids: Map<string, GridPageType>;
-    items: Map<string, GridItemType>;
-    lists: Map<string, Set<string>>;
+    layout: [number, number];
+    //size: [number, number];
 };
 
 
@@ -62,24 +65,21 @@ export const getParent = (e) => {
 
 //
 const get = (items, id)=>{
-    if (typeof items?.get == "function") {
-        return items.get(id);
-    } else {
-        return Array.from(items)?.find?.((item: any)=>(item.id == id));
-    }
+    if (typeof items?.get == "function") { return items?.get?.(id); };
+    return Array.from(items||[])?.find?.((item: any)=>(item?.id == id));
 }
 
 //
 export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType): [number, number] => {
-    //const items = gridItems;
     const preCell: [number, number] = [...$preCell]; // make non-conflict copy
     const icons =
-        [...gridArgs.page.list]?.map((id) => get(gridArgs.items, id)).filter((m) => !!m) || [];
+        Array.from(gridArgs?.list||[])?.map((id) => get(gridArgs?.items, id)).filter((m) => !!m) || [];
+    const item = gridArgs?.item || {};
 
     //
     const checkBusy = (cell): boolean => {
         return icons
-            .filter((e) => (!(e == gridArgs?.item || e.id == gridArgs?.item?.id) && (e.pointerId < 0 || e.pointerId == null)))
+            .filter((e) => (!(e == item || e.id == item?.id) && (e.pointerId < 0 || e.pointerId == null)))
             .some((one) => ((one?.cell?.[0]||0) == (cell[0]||0) && (one?.cell?.[1]||0) == (cell[1]||0)));
     };
 
@@ -90,7 +90,7 @@ export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType)
 
     //
     const orientation = getCorrectOrientation();
-    const layout = [...gridArgs.page.layout];
+    const layout = [...gridArgs?.layout];
     if (orientation.startsWith("landscape")) {
         //layout.reverse();
     }
@@ -158,7 +158,7 @@ const roundNearest = (number, N = 1)=>(Math.round(number * N) / N)
 //
 export const convertPointerPxToOrientPx = ($pointerPx: [number, number], gridArgs: GridArgsType): [number, number] => {
     const orientation = getCorrectOrientation();
-    const boxInPx = [...gridArgs.page.size];
+    const boxInPx = [...gridArgs.size];
     const pointerPx: [number, number] = [...$pointerPx];
     const orientIndex = orientationNumberMap[orientation] || 0;
 
@@ -173,7 +173,7 @@ export const convertPointerPxToOrientPx = ($pointerPx: [number, number], gridArg
 //
 export const convertOrientPxToPointerPx = ($orientPx: [number, number], gridArgs: GridArgsType): [number, number] => {
     const orientation = getCorrectOrientation();
-    const boxInPx = [...gridArgs.page.size];
+    const boxInPx = [...gridArgs.size];
     const orientPx: [number, number] = [...$orientPx];
     const orientIndex = orientationNumberMap[orientation] || 0;
 
@@ -190,10 +190,10 @@ export const convertOrientPxToPointerPx = ($orientPx: [number, number], gridArgs
 //
 export const convertOrientPxToCX = ($orientPx: [number, number], gridArgs: GridArgsType): [number, number] => {
     const orientation = getCorrectOrientation();
-    const boxInPx = [...gridArgs.page.size];
+    const boxInPx = [...gridArgs.size];
     const orientPx: [number, number] = [...$orientPx];
     const orientIndex = orientationNumberMap[orientation] || 0;
-    const layout = [...gridArgs.page.layout];
+    const layout = [...gridArgs.layout];
     if (orientIndex%2) { boxInPx.reverse(); };
 
     //
@@ -204,9 +204,9 @@ export const convertOrientPxToCX = ($orientPx: [number, number], gridArgs: GridA
 //
 export const relativeToAbsoluteInPx = ($relativePx: [number, number], gridArgs: GridArgsType): [number, number] => {
     const orientation = getCorrectOrientation();
-    const boxInPx = [...gridArgs.page.size];
+    const boxInPx = [...gridArgs.size];
     const orientIndex = orientationNumberMap[orientation] || 0;
-    const layout = [...gridArgs.page.layout];
+    const layout = [...gridArgs.layout];
     if (orientIndex%2) { boxInPx.reverse(); };
 
     //
@@ -228,9 +228,9 @@ export const absoluteCXToRelativeCX = ($CX: [number, number], gridArgs: GridArgs
 //
 export const absolutePxToRelativeInOrientPx = ($absolutePx: [number, number], gridArgs: GridArgsType)=>{
     const orientation = getCorrectOrientation();
-    const boxInPx = [...gridArgs.page.size];
+    const boxInPx = [...gridArgs.size];
     const orientIndex = orientationNumberMap[orientation] || 0;
-    const layout = [...gridArgs.page.layout];
+    const layout = [...gridArgs.layout];
     if (orientIndex%2) { boxInPx.reverse(); };
 
     //
@@ -244,9 +244,9 @@ export const absolutePxToRelativeInOrientPx = ($absolutePx: [number, number], gr
 export const floorInOrientPx = ($orientPx: [number, number], gridArgs: GridArgsType) => {
     const orientPx: [number, number] = [...$orientPx];
     const orientation = getCorrectOrientation();
-    const boxInPx = [...gridArgs.page.size];
+    const boxInPx = [...gridArgs.size];
     const orientIndex = orientationNumberMap[orientation] || 0;
-    const layout = [...gridArgs.page.layout];
+    const layout = [...gridArgs.layout];
     if (orientIndex%2) { boxInPx.reverse(); };
 
     //
@@ -256,7 +256,7 @@ export const floorInOrientPx = ($orientPx: [number, number], gridArgs: GridArgsT
 
 //
 export const floorInCX = ($CX: [number, number], gridArgs: GridArgsType): [number, number] => {
-    const layout = gridArgs.page.layout;
+    const layout = gridArgs.layout;
     return [
         Math.min(Math.max(roundNearest($CX[0]), 0), layout[0]-1),
         Math.min(Math.max(roundNearest($CX[1]), 0), layout[1]-1)
