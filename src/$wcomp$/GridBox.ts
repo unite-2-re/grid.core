@@ -5,7 +5,7 @@ import styles from "./GridBox.scss?inline&compress";
 export const preInit = URL.createObjectURL(new Blob([styles], {type: "text/css"}));
 
 //
-class GridBoxElement extends HTMLElement {
+class UIGridBoxElement extends HTMLElement {
     #initialized: boolean = false;
 
     //
@@ -36,11 +36,11 @@ class GridBoxElement extends HTMLElement {
 }
 
 //
-customElements.define("u-gridbox", GridBoxElement);
+customElements.define("ui-gridbox", UIGridBoxElement);
 
 //
 export default () => {};
-export { GridBoxElement };
+export { UIGridBoxElement };
 
 //
 const OWNER = "gridbox";
