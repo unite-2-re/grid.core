@@ -20,7 +20,7 @@ export interface GridItemType {
     cell: [number, number];
     id: string;
     label: string;
-    pointerId: number;
+    pointerId?: number;
     icon: string;
     href?: string;
     action?: string;
@@ -39,7 +39,7 @@ export interface GridItemType {
 export interface GridArgsType {
     item: GridItemType;
     list: Set<string> | string[];
-    items: Map<string, GridItemType>;
+    items: Map<string, GridItemType>|Set<GridItemType>|GridItemType[];
     layout: [number, number];
     size: [number, number];
 };
@@ -47,7 +47,7 @@ export interface GridArgsType {
 //
 export interface GridStateType {
     lists: Set<string> | string[];
-    items: Map<string, GridItemType>;
+    items: Map<string, GridItemType>|Set<GridItemType>|GridItemType[];
     layout: [number, number];
     //size: [number, number];
 };
