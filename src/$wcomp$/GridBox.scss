@@ -151,8 +151,8 @@
         //
         & {
             --ox-orient: rem(var(--orient, 0), 2);
-            --c-gap: 0px;
-            --r-gap: 0px;
+            --c-gap: min(1rem, 2cqmin);
+            --r-gap: min(1rem, 2cqmin);
         }
 
         //
@@ -238,8 +238,8 @@
                 min-block-size: 1px;
 
                 //
-                inline-size: max-content;
-                block-size: max-content;
+                inline-size: 100%;//max-content;
+                block-size: 100%;//max-content;
 
                 //
                 max-inline-size: var(--icon-size, 1px);
@@ -254,6 +254,18 @@
 
                 //
                 overflow: visible;
+
+                // if interpolation keywords supported
+                @supports (min-inline-size: max(1px, max-content)) {
+                    min-inline-size: max(1px, max-content);
+                    min-block-size: max(1px, max-content);
+                }
+            }
+
+            //
+            & > :where(*) {
+                inline-size: 100%;
+                block-size: 100%;
             }
 
             //
