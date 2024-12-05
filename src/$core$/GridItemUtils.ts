@@ -65,21 +65,21 @@ export const getParent = (e) => {
 
 //
 const get = (items, id)=>{
-    if (typeof items?.get == "function") { return items?.get?.(id); };
-    return Array.from(items||[])?.find?.((item: any)=>(item?.id == id));
+    if (typeof items?.get == "function") { const item = items?.get?.(id); if (item) { return item; }; }; // only for maps
+    return Array.from(items?.values?.()||items||[])?.find?.((item: any)=>(item?.id == id || item == id));
 }
 
 //
 export const redirectCell = ($preCell: [number, number], gridArgs: GridArgsType): [number, number] => {
     const preCell: [number, number] = [...$preCell]; // make non-conflict copy
-    const icons =
-        Array.from(gridArgs?.list||[])?.map((id) => get(gridArgs?.items, id)).filter((m) => !!m) || [];
+    const list = Array.from(gridArgs?.list||[]);
+    const icons: GridItemType[] = list?.length > 0 ? (list?.map((id) => get(gridArgs?.items, id)).filter((m) => !!m)) : Array.from(gridArgs?.items?.values());
     const item = gridArgs?.item || {};
 
     //
     const checkBusy = (cell): boolean => {
         return icons
-            .filter((e) => (!(e == item || e.id == item?.id) && (e.pointerId < 0 || e.pointerId == null)))
+            .filter((e: GridItemType) => (!(e == item || e?.id == item?.id) && (e?.pointerId == null || e?.pointerId < 0)))
             .some((one) => ((one?.cell?.[0]||0) == (cell[0]||0) && (one?.cell?.[1]||0) == (cell[1]||0)));
     };
 
