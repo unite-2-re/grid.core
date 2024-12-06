@@ -151,8 +151,8 @@
         //
         & {
             --ox-orient: rem(var(--orient, 0), 2);
-            --c-gap: min(1rem, calc(4cqmin / var(--layout-c, 4)));
-            --r-gap: min(1rem, calc(4cqmin / var(--layout-r, 8)));
+            --c-gap: clamp(max(0.5rem, 8cqmin), min(calc(4cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(4cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), max(1rem, 16cqmin));
+            --r-gap: clamp(max(0.5rem, 8cqmin), min(calc(4cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(4cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), max(1rem, 16cqmin));
         }
 
         //
@@ -202,7 +202,10 @@
 
             //
             & {
-                --icon-size: min(calc(100cqmin / max(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1))) - max(var(--c-gap, 1rem), var(--r-gap, 1rem))), 8rem);
+                --icon-size: min((100cqmax / max(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1))))/*min(
+                    100cqmin / min(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1))),
+                    100cqmax / max(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1)))
+                )*/ - max(var(--c-gap, 1rem), var(--r-gap, 1rem)), 8rem);
                 --grid-c: var(--fc-cell-x);
                 --grid-r: var(--fc-cell-y);
             }
