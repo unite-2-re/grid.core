@@ -205,7 +205,7 @@
                 --icon-size: min((100cqmin / min(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1))))/*min(
                     100cqmin / min(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1))),
                     100cqmax / max(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1)))
-                )*/ - max(var(--c-gap, 1rem), var(--r-gap, 1rem)), 8rem);
+                )*/ - 0.5 * max(var(--c-gap, 1rem), var(--r-gap, 1rem)), 8rem);
                 --grid-c: var(--fc-cell-x);
                 --grid-r: var(--fc-cell-y);
             }
