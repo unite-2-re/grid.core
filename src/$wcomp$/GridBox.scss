@@ -219,17 +219,21 @@
             //
             & {
                 position: absolute;
+                transform-origin: 0% 0%;
                 transform:
+                    translate(-50%, -50%)
                     translate(
-                        calc(var(--translate-x) + var(--inline-offset) + 0.5 * var(--ox-c-span, 1) * var(--ox-c-unit, 1px) - 50% + var(--drag-x, 0) * var(--zpx, 1px)),
-                        calc(var(--translate-y) + var(--block-offset ) + 0.5 * var(--ox-r-span, 1) * var(--ox-r-unit, 1px) - 50% + var(--drag-y, 0) * var(--zpx, 1px))
+                        calc(var(--translate-x) + var(--drag-x, 0) * var(--zpx, 1px)),
+                        calc(var(--translate-y) + var(--drag-y, 0) * var(--zpx, 1px))
                     )
                     scale(var(--scale, 1)) !important;
 
                 //
-                inset: 0px;
-                inset-inline-end: auto;
-                inset-block-end: auto;
+                inset:
+                    calc(var(--block-offset ) + 0.5 * var(--ox-r-span, 1) * var(--ox-r-unit, 1px))
+                    auto
+                    auto
+                    calc(var(--inline-offset) + 0.5 * var(--ox-c-span, 1) * var(--ox-c-unit, 1px));
 
                 //
                 zoom: 1;
