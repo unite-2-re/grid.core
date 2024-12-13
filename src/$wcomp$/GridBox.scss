@@ -221,12 +221,12 @@
                 position: absolute;
                 transform-origin: 0% 0%;
                 transform:
-                    translate(-50%, -50%)
                     translate(
                         calc(var(--translate-x) + var(--drag-x, 0) * var(--zpx, 1px)),
                         calc(var(--translate-y) + var(--drag-y, 0) * var(--zpx, 1px))
                     )
-                    scale(var(--scale, 1)) !important;
+                    scale(var(--scale, 1))
+                    translate(-50%, -50%) !important;
 
                 //
                 inset:
