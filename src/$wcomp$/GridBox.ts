@@ -5,7 +5,7 @@ import styles from "./GridBox.scss?inline&compress";
 export const preInit = URL.createObjectURL(new Blob([styles], {type: "text/css"}));
 
 //
-class UIGridBoxElement extends HTMLElement {
+export class UIGridBoxElement extends HTMLElement {
     #initialized: boolean = false;
 
     //
@@ -15,12 +15,6 @@ class UIGridBoxElement extends HTMLElement {
 
             // legacy?
             this.classList.add("u2-grid-layout");
-
-            //
-            /*const shadow = this.attachShadow({mode: 'open'});
-            const style  = document.createElement("style");
-            style.innerHTML = `@import url("${preInit}");`;
-            shadow.appendChild(style);*/
         }
     }
 
@@ -37,10 +31,7 @@ class UIGridBoxElement extends HTMLElement {
 
 //
 customElements.define("ui-gridbox", UIGridBoxElement);
-
-//
 export default () => {};
-export { UIGridBoxElement };
 
 //
 const OWNER = "gridbox";
@@ -85,18 +76,6 @@ const loadBlobStyle = (inline: string)=>{
     loadStyleSheet(inline, [style, "href"]);
     document.head.appendChild(style);
     return style;
-}
-
-//
-const loadInlineStyle = (inline: string, rootElement = document.head)=>{
-    const PLACE = (rootElement.querySelector("head") ?? rootElement);
-    if (PLACE instanceof HTMLHeadElement) { loadBlobStyle(inline); }
-
-    //
-    const style = document.createElement("style");
-    style.dataset.owner = OWNER;
-    loadStyleSheet(inline, [style, "innerHTML"]);
-    PLACE.appendChild(style);
 }
 
 //

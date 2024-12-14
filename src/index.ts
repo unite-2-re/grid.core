@@ -1,7 +1,7 @@
 export * from "./$core$/GridItemUtils";
-export * from "./$service$/GridLayout";
+export * from "./$core$/Properties";
 export * from "./$wcomp$/GridBox";
 
-//
-import run from "./$service$/GridLayout";
-export default run;
+// stub
+const init = ()=>{};
+export default init;
