@@ -23,7 +23,6 @@
 
 //
 @scope(:host, :scope, :root) {
-    @property --ox-orient { syntax: "<number>"; initial-value: 0; inherits: true; }
     @property --ox-c-span { syntax: "<number>"; initial-value: 1; inherits: true; }
     @property --ox-r-span { syntax: "<number>"; initial-value: 1; inherits: true; }
     @property --ox-c-unit { syntax: "<length-percentage>"; initial-value: 1px; inherits: true; }
@@ -40,7 +39,6 @@
     @property --drag-y { syntax: "<number>"; initial-value: 0; inherits: true; }
     @property --grid-c { syntax: "<number>"; initial-value: 0; inherits: true; }
     @property --grid-r { syntax: "<number>"; initial-value: 0; inherits: true; }
-    @property --orient { syntax: "<number>"; initial-value: 0; inherits: true; }
     @property --cell-x { syntax: "<integer>"; initial-value: 0; inherits: true; }
     @property --cell-y { syntax: "<integer>"; initial-value: 0; inherits: true; }
 
@@ -69,7 +67,6 @@
 
         //
         & {
-            --ox-orient: rem(var(--orient, 0), 2);
             --c-gap: clamp(max(0.5rem, 8cqmin), min(calc(4cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(4cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), max(1rem, 16cqmin));
             --r-gap: clamp(max(0.5rem, 8cqmin), min(calc(4cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(4cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), max(1rem, 16cqmin));
         }
@@ -122,10 +119,12 @@
 
             //
             & {
+                --os-drag-x: calc(var(--drag-x, 0) * 1px);
+                --os-drag-y: calc(var(--drag-y, 0) * 1px);
                 --ox-c-unit: calc(var(--os-size-x, 100cqi) / var(--layout-c, 0));
                 --ox-r-unit: calc(var(--os-size-y, 100cqb) / var(--layout-r, 0));
-                --os-inset-x: calc((var(--grid-c) + 0.5) * var(--ox-c-unit));
-                --os-inset-y: calc((var(--grid-r) + 0.5) * var(--ox-r-unit));
+                --os-inset-x: calc((var(--grid-c) - 0.5) * var(--ox-c-unit));
+                --os-inset-y: calc((var(--grid-r) - 0.5) * var(--ox-r-unit));
             }
 
             //
@@ -135,7 +134,7 @@
                 transform:
                     translate(var(--cs-drag-x, 0px), var(--cs-drag-y, 0px))
                     scale(var(--scale, 1))
-                    translate(-50%, -50%) !important;
+                    translate(calc(var(--translate-x, 0px) - 50%), calc(var(--translate-y, 0px) - 50%)) !important;
 
                 //
                 inset: var(--cs-inset-y, 0px) auto auto var(--cs-inset-x, 0px);

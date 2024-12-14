@@ -11,6 +11,22 @@ const regProp = (options: any)=>{
 export const initProps = ()=>{
     //
     regProp?.({
+        name: "--drag-x",
+        syntax: "<number>",
+        inherits: true,
+        initialValue: "0",
+    });
+
+    //
+    regProp?.({
+        name: "--drag-y",
+        syntax: "<number>",
+        inherits: true,
+        initialValue: "0",
+    });
+
+    //
+    regProp?.({
         name: "--grid-r",
         syntax: "<number>",
         inherits: true,
@@ -25,3 +41,6 @@ export const initProps = ()=>{
         initialValue: "0",
     });
 }
+
+//
+export default initProps;
