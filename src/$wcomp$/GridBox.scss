@@ -1,8 +1,4 @@
 //
-@use "../$scss$/LogicFb" as flg;
-@use "../$scss$/LogicSign" as slg;
-
-//
 @mixin calculateMetric() {
     //
     --p-cell-x: var(--cell-x);
