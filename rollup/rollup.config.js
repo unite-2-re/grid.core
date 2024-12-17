@@ -5,7 +5,7 @@ import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { compression } from 'vite-plugin-compression2';
 import optimizer from 'vite-plugin-optimizer';
-import createExternal from "vite-plugin-external";
+import createExternal from 'vite-plugin-external';
 
 //
 export const NAME = "grid";
@@ -64,7 +64,7 @@ export const terserOptions = {
         hoist_vars: true,
         properties: true,
         // don't use in debug mode
-        drop_console: true
+        //drop_console: true
     },
     format: {
         braces: false,
@@ -129,11 +129,11 @@ export const plugins = [
 export const rollupOptions = {
     plugins,
     treeshake: 'smallest',
+    input: "./src/index.ts",
     external: [
         "externals", "/externals", "./externals",
         "dist", "/dist", "./dist"
     ],
-    input: "./src/index.ts",
     output: {
         minifyInternalExports: true,
         compact: true,
