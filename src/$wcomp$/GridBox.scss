@@ -166,6 +166,15 @@
                 overflow: visible;
             }
 
+            //
+            & {
+                transition-behavior: allow-discrete;
+                transition-property: transform;
+                transition-duration: calc(var(--drag-d, 0.01) * 0.8ms);
+                transition-timing-function: linear ;
+                transition-delay: 0ms;
+            }
+
             // if interpolation keywords supported
             @supports (min-inline-size: max(1px, max-content)) {
                 min-inline-size: max(1px, max-content);
