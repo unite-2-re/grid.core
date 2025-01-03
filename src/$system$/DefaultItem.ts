@@ -20,7 +20,7 @@ export const setProperty = (target, name, value, importance = "")=>{
     } else
     {
         const prop = target?.style?.getPropertyValue?.(name);
-        if (parseFloat(prop) != value && prop != value || prop == null) {
+        if ((parseFloat(prop||"0") != value && prop != value) || !prop) {
             target.style.setProperty(name, value, importance);
         }
     }
