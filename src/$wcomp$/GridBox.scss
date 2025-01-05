@@ -67,8 +67,8 @@
 
         //
         & {
-            --c-gap: clamp(min(0.5rem, 8cqmin), min(calc(4cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(4cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), min(1rem, 16cqmin));
-            --r-gap: clamp(min(0.5rem, 8cqmin), min(calc(4cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(4cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), min(1rem, 16cqmin));
+            --c-gap: clamp(min(1rem, 8cqmin), min(calc(8cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(6cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), min(4rem, 16cqmin));
+            --r-gap: clamp(min(1rem, 8cqmin), min(calc(8cqmin / min(var(--layout-c, 4), var(--layout-r, 8))), calc(6cqmax / max(var(--layout-c, 4), var(--layout-r, 8)))), min(4rem, 16cqmin));
         }
 
         //
