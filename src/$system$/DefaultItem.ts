@@ -35,7 +35,7 @@ export const trackItemState = (element, item, [value, prop], args?)=>{
     if (element) {
         if (prop == "cell") { subscribe(value, (v,p)=>setProperty(element, ["--cell-x","--cell-y"][parseInt(p)], v)); } else
         if (prop == "label" && element.matches("span")) { element.innerHTML = value; } else
-        if (prop == "icon") { element[prop] = value; } else
+        if (prop == "icon") { element[prop] = value || element[prop] || ""; } else
         if (element?.dataset && typeof prop == "string" && !URL.canParse(prop) && !prop.includes("\/") && !prop.includes("#")) { element.dataset[prop] = value; };
     }
 
