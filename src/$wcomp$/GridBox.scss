@@ -133,8 +133,8 @@
                 transform-origin: 0% 0%;
                 transform:
                     translate3d(
-                        var(--cs-drag-x, 0px), 
-                        var(--cs-drag-y, 0px), 
+                        round(nearest, var(--cs-drag-x, 0px), calc(1px / var(--pixel-ratio, 1))), 
+                        round(nearest, var(--cs-drag-y, 0px), calc(1px / var(--pixel-ratio, 1))), 
                         0px)
                     scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1))
                     translate3d(
