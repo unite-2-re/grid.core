@@ -8,7 +8,7 @@ import AxGesture, {grabForDrag} from "/externals/core/interact.js";
 import { observeContentBox } from "/externals/lib/dom.js";
 
 // @ts-ignore
-import { getBoundingOrientRect, orientOf } from "/externals/core/agate.js";
+import { getBoundingOrientRect, agWrapEvent, orientOf } from "/externals/core/agate.js";
 
 //
 import $createItem, { setProperty, trackItemState } from "./DefaultItem";
@@ -48,14 +48,15 @@ export const inflectInGrid = (gridSystem, items, list: string[]|Set<string> = []
     const bindInternal = (newItem, item)=>{
         //
         const gesture = new AxGesture(newItem);
-        gesture.longPress({
+        gesture?.longPress?.({
             handler: "*",
             anyPointer: true,
             mouseImmediate: true,
             minHoldTime: 60 * 3600,
             maxHoldTime: 100
-        }, (evc)=>{
+        }, agWrapEvent((evc)=>{
             const ev = evc?.detail || evc;
+
             if (!newItem.dataset.dragging)
             {
                 const n_coord: [number, number] = (ev.orient ? [...ev.orient] : [ev?.clientX || 0, ev?.clientY || 0]) as [number, number];
@@ -67,7 +68,7 @@ export const inflectInGrid = (gridSystem, items, list: string[]|Set<string> = []
                 }
 
                 //
-                const shifting = (evc_l: any)=>{
+                const shifting = agWrapEvent((evc_l: any)=>{
                     const ev_l = evc_l?.detail || evc_l;
                     if (ev_l?.pointerId == ev?.pointerId) {
                         const coord: [number, number] = (ev_l.orient ? [...ev_l.orient] : [ev_l?.clientX || 0, ev_l?.clientY || 0]) as [number, number];
@@ -83,33 +84,33 @@ export const inflectInGrid = (gridSystem, items, list: string[]|Set<string> = []
                             });
                         }
                     }
-                }
+                });
 
                 //
-                const releasePointer = (evc_l)=>{
+                const releasePointer = agWrapEvent((evc_l)=>{
                     const ev_l = evc_l?.detail || evc_l;
                     if (ev_l?.pointerId == ev?.pointerId) {
                         unbind(ev_l);
                         ev_l?.release?.();
                     }
-                }
+                });
 
                 //
-                const unbind = (evc_l)=>{
+                const unbind = agWrapEvent((evc_l)=>{
                     const ev_l = evc_l?.detail || evc_l;
                     if (ev_l?.pointerId == ev?.pointerId) {
                         ROOT.removeEventListener("pointermove", shifting);
                         ROOT.removeEventListener("pointercancel", releasePointer);
                         ROOT.removeEventListener("pointerup", releasePointer);
                     }
-                }
+                });
 
                 //
                 ROOT.addEventListener("pointermove", shifting);
                 ROOT.addEventListener("pointercancel", releasePointer);
                 ROOT.addEventListener("pointerup", releasePointer);
             }
-        });
+        }));
 
         //
         newItem.addEventListener("m-dragstart", (ev)=>{
