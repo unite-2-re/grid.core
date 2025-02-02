@@ -119,8 +119,10 @@
 
             //
             & {
-                --os-drag-x: calc(var(--drag-x, 0) * 1px);
-                --os-drag-y: calc(var(--drag-y, 0) * 1px);
+                //--os-drag-x: calc(var(--drag-x, 0) * 1px);
+                //--os-drag-y: calc(var(--drag-y, 0) * 1px);
+                --cs-drag-x: calc(var(--drag-x, 0) * 1px);
+                --cs-drag-y: calc(var(--drag-y, 0) * 1px);
                 --ox-c-unit: calc(var(--os-size-x, 100cqi) / var(--layout-c, 0));
                 --ox-r-unit: calc(var(--os-size-y, 100cqb) / var(--layout-r, 0));
                 --os-inset-x: calc((var(--grid-c) - 0.5) * var(--ox-c-unit));
