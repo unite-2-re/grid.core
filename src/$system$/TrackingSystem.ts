@@ -1,5 +1,5 @@
 // @ts-ignore /* @vite-ignore */
-import {subscribe} from "/externals/lib/object.js";
+import {subscribe, makeObjectAssignable, makeReactive } from "/externals/lib/object.js";
 
 // @ts-ignore /* @vite-ignore */
 import AxGesture, {grabForDrag} from "/externals/core/interact.js";
@@ -11,7 +11,7 @@ import { observeContentBox } from "/externals/lib/dom.js";
 import { getBoundingOrientRect, agWrapEvent, orientOf } from "/externals/core/agate.js";
 
 //
-import $createItem, { setProperty, trackItemState } from "./DefaultItem";
+import $createItem, { setProperty } from "./DefaultItem";
 
 // @ts-ignore /* @vite-ignore */
 import {
@@ -260,7 +260,12 @@ export const inflectInGrid = (gridSystem, items, list: string[]|Set<string> = []
             if (!gridSystem?.contains?.(newItem)) {
                 gridSystem?.appendChild?.(newItem);
                 bindInternal(newItem, item);
-                subscribe(item, (state, property)=>trackItemState(newItem, item, [state, property], {item, list, items, layout, size}));
+                subscribe(item, (state, property)=>{
+                    const args = {item, list, items, layout, size};
+                    if (item && !item?.cell) { item.cell = makeObjectAssignable(makeReactive([0, 0])); };
+                    if (item && args) { item.cell = redirectCell(item?.cell, args); };
+                    if (property == "cell") { subscribe(state, (v,p)=>setProperty(newItem, ["--cell-x","--cell-y"][parseInt(p)], v)); }
+                });
             }
 
             //
