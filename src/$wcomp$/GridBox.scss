@@ -1,5 +1,5 @@
 //
-@mixin calculateMetric() {
+@mixin computeGrid() {
     //
     --p-cell-x: var(--cell-x);
     --p-cell-y: var(--cell-y);
@@ -19,6 +19,10 @@
     //
     --dir-x: calc(var(--fc-cell-x) - var(--fp-cell-x));
     --dir-y: calc(var(--fc-cell-y) - var(--fp-cell-y));
+
+    //
+    --grid-c: var(--fc-cell-x);
+    --grid-r: var(--fc-cell-y);
 }
 
 //
@@ -95,34 +99,22 @@
         }
 
         //
-        & > :where(*[data-dragging]) {
-            --grid-c: var(--fp-cell-x);
-            --grid-r: var(--fp-cell-y);
-        }
-
-        //
         & > :where(*) {
-            @include calculateMetric();
+            @include computeGrid();
 
-            //
+            // calculate visible size
+            & { --icon-size: min((100cqmin / min(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1)))) - 0.5 * min(var(--c-gap, 1rem), var(--r-gap, 1rem)), 6rem); }
+            & * {--drag-x: 0; --drag-y: 0; }
+
+            // dragging coordinate
             & {
-                --icon-size: min((100cqmin / min(calc(var(--layout-c, 4) / var(--ox-c-span, 1)), calc(var(--layout-r, 8) / var(--ox-r-span, 1)))) - 0.5 * min(var(--c-gap, 1rem), var(--r-gap, 1rem)), 6rem);
-                --grid-c: var(--fc-cell-x);
-                --grid-r: var(--fc-cell-y);
+                --drag-x: 0; --cs-drag-x: calc(var(--drag-x, 0) * 1px);
+                --drag-y: 0; --cs-drag-y: calc(var(--drag-y, 0) * 1px);
             }
 
-            // fix translate issues
-            & * {
-                --drag-x: 0;
-                --drag-y: 0;
-            }
-
-            //
+            // compute grid insets
+            // TODO: use native grid (needs Agate.UX grid system)
             & {
-                //--os-drag-x: calc(var(--drag-x, 0) * 1px);
-                //--os-drag-y: calc(var(--drag-y, 0) * 1px);
-                --cs-drag-x: calc(var(--drag-x, 0) * 1px);
-                --cs-drag-y: calc(var(--drag-y, 0) * 1px);
                 --ox-c-unit: calc(var(--os-size-x, 100cqi) / var(--layout-c, 0));
                 --ox-r-unit: calc(var(--os-size-y, 100cqb) / var(--layout-r, 0));
                 --os-inset-x: calc((var(--grid-c) - 0.5) * var(--ox-c-unit));
@@ -195,6 +187,11 @@
                 block-size: 100%;
             }
         }
-    }
 
+        //
+        & > :where(*[data-dragging]) {
+            --grid-c: var(--fp-cell-x);
+            --grid-r: var(--fp-cell-y);
+        }
+    }
 }
