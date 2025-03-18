@@ -127,13 +127,13 @@
                 transform-origin: 0% 0%;
                 transform:
                     translate3d(
-                        round(nearest, var(--cs-drag-x, 0px), calc(1px / var(--pixel-ratio, 1))), 
-                        round(nearest, var(--cs-drag-y, 0px), calc(1px / var(--pixel-ratio, 1))), 
+                        round(nearest, var(--cs-drag-x, 0px), calc(1px / var(--pixel-ratio, 1))),
+                        round(nearest, var(--cs-drag-y, 0px), calc(1px / var(--pixel-ratio, 1))),
                         0px)
                     scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1))
                     translate3d(
-                        round(nearest, calc(var(--translate-x, 0px) - 50%), calc(1px / var(--pixel-ratio, 1))), 
-                        round(nearest, calc(var(--translate-y, 0px) - 50%), calc(1px / var(--pixel-ratio, 1))), 
+                        round(nearest, calc(var(--translate-x, 0px) - 50%), calc(1px / var(--pixel-ratio, 1))),
+                        round(nearest, calc(var(--translate-y, 0px) - 50%), calc(1px / var(--pixel-ratio, 1))),
                         0px) !important;
 
                 //
@@ -141,7 +141,7 @@
 
                 //
                 zoom: 1;
-                place-self: safe center;
+                place-self: center;
 
                 //
                 min-inline-size: 1px;
